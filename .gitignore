@@ -1,4 +1,5 @@
 /vendor/
 /node_modules/
-/includes/config/database.php/
+/includes/config/
+/public/build/
 

@@ -13,5 +13,7 @@
             "email": "andremartines2010@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "intervention/image": "^2.7"
+    }
 }
