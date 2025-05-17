@@ -1,5 +1,27 @@
 <?php
-
+/**
+ * Clase main
+ *
+ * Esta clase proporciona una implementación base para modelos en el patrón MVC.
+ * Incluye métodos para operaciones CRUD, validación, manejo de errores y gestión de imágenes.
+ *
+ * Métodos principales:
+ * - setDb($database): Establece la conexión a la base de datos.(en app.php)
+ * - validate(): Valida los datos del modelo y llena el arreglo de errores si es necesario.
+ * - createError($type, $msg): Agrega un mensaje de error de validación.
+ * - all(): Retorna todos los registros de la tabla asociada.
+ * - find($id): Busca un registro por su ID.
+ * - findBy($column, $value): Busca un registro por una columna específica.
+ * - create($data): Crea una instancia del modelo a partir de un arreglo de datos.
+ * - update($data): Actualiza el registro actual con los datos proporcionados.
+ * - delete(): Elimina el registro actual de la base de datos.
+ * - findAllBy($column, $value): Busca todos los registros que coincidan con una columna.
+ * - save(): Inserta el registro actual en la base de datos si no hay errores de validación.
+ * - getErrors($type = null): Obtiene los errores de validación.
+ * - img($imagen): Procesa y guarda una imagen, retornando el nombre generado.
+ *
+ * Nota: Esta clase está pensada para ser extendida por modelos concretos que definan la tabla y los atributos específicos.
+ */
 namespace models;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
