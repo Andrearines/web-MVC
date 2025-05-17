@@ -1,6 +1,8 @@
 <?php
 
 namespace models;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 class main
 {
     public static $table;
@@ -113,6 +115,15 @@ public static function findBy($column, $value){
         }else{
             return false;
         }
+    }
+
+      private function img($imagen){   
+        $nombre_img=md5(uniqid(rand(),true )).".png";
+        //echo $nombre_img; exit;
+       $manager=new ImageManager(Driver::class);
+       $imagen=$manager->read($imagen['tmp_name'])->cover(900,900);
+       $imagen->save(__DIR__ . '/../public/imagenes/'.$nombre_img);
+       return  $nombre_img;
     }
 
     public function getErrors($type = null){
