@@ -27,30 +27,16 @@ if(!isset($inicio)){
                 <a href="/">
                     <img src="" alt="logo">
                 </a>
-                <div class="derecha">
-                   
-                    <nav class="navegacion">
-                      
-                        <?php
-                        //if($auth):?>
-                        <!--<a href="/serrar-secion.php">cerrar secion</a>-->
-                        <?php 
-                        //else:?>
-                           <!-- <a href="/login.php">login</a>-->
-                        <?php
-                        // endif?>
-                    </nav>
-                </div>
            </div> <!--barra-->
 
-            <h1> </h1>
+            <h1> </h1><!--titulo-->
         </div>
     </header>
 
     <?php echo $contenedor?>
    
     
-<footer class="footer seccion">
+<footer class="footer">
         <div class="contenedor contenedor-footer">
             <nav class="navegacion">
                 
