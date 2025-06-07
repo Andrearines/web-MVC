@@ -6,9 +6,18 @@ class Router{
 
     public $rutasGET=[];
     public $rutasPOST=[];
+    public $rutasPUT=[];
+    public $rutasDELETE=[];
 
     public function get($url,$fn){
         $this->rutasGET[$url]=$fn;
+    }
+
+    public function put($url,$fn){
+        $this->rutasPUT[$url]=$fn;
+    }
+    public function delete($url,$fn){
+        $this->rutasDELETE[$url]=$fn;
     }
     public function post($url,$fn){
         $this->rutasPOST[$url]=$fn;
@@ -32,9 +41,13 @@ class Router{
    
    if($metodo ==='GET'){
     $fn = $this->rutasGET[$urlA] ?? null;
-   }else{
+   }else if($metodo ==='POST'){
     $fn = $this->rutasPOST[$urlA] ?? null;
-   }
+   }else if($metodo ==='PUT'){
+    $fn = $this->rutasPUT[$urlA] ?? null;
+    }else{
+    $fn = $this->rutasDELETE[$urlA] ?? null;
+    }
    
    if($fn){
     call_user_func($fn,$this);

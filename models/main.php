@@ -1,27 +1,5 @@
 <?php
-/**
- * Clase main
- *
- * Esta clase proporciona una implementación base para modelos en el patrón MVC.
- * Incluye métodos para operaciones CRUD, validación, manejo de errores y gestión de imágenes.
- *
- * Métodos principales:
- * - setDb($database): Establece la conexión a la base de datos.(en app.php)
- * - validate(): Valida los datos del modelo y llena el arreglo de errores si es necesario.
- * - createError($type, $msg): Agrega un mensaje de error de validación.
- * - all(): Retorna todos los registros de la tabla asociada.
- * - find($id): Busca un registro por su ID.
- * - findBy($column, $value): Busca un registro por una columna específica.
- * - create($data): Crea una instancia del modelo a partir de un arreglo de datos.
- * - update($data): Actualiza el registro actual con los datos proporcionados.
- * - delete(): Elimina el registro actual de la base de datos.
- * - findAllBy($column, $value): Busca todos los registros que coincidan con una columna.
- * - save(): Inserta el registro actual en la base de datos si no hay errores de validación.
- * - getErrors($type = null): Obtiene los errores de validación.
- * - img($imagen): Procesa y guarda una imagen, retornando el nombre generado.
- *
- * Nota: Esta clase está pensada para ser extendida por modelos concretos que definan la tabla y los atributos específicos.
- */
+
 namespace models;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
@@ -29,6 +7,7 @@ class main
 {
     public static $table;
     public static $db;
+    static $columnDB = [];
     
     public static $errors = [];
 
@@ -53,6 +32,15 @@ class main
         static::$errors[$type][] = $msg;
     }
 
+    public function sicronizar($data){
+        foreach ($data as $key => $value) {
+            if (property_exists($this, $key)) {
+                $cleanValue = self::$db->real_escape_string($value);
+                $this->$key = $cleanValue;
+            }
+        }
+    }
+ 
     public static function all(){
         $query = "SELECT * FROM " . static::$table;
         $result = self::$db->query($query);
@@ -92,25 +80,29 @@ public static function findBy($column, $value){
         $object = new static;
         foreach ($data as $key => $value) {
             if (property_exists($object, $key)) {
-                $object->$key = $value;
+                $cleanValue = self::$db->real_escape_string($value);
+                $object->$key = $cleanValue;
             }
         }
         return $object;
     }
 
-    public function update($data){
+    public function update($id){
+        $id = self::$db->real_escape_string($id);
         $query = "UPDATE " . static::$table . " SET ";
-        foreach ($data as $key => $value) {
-            if (property_exists($this, $key)) {
-                $query .= "$key = '$value', ";
+        foreach (static::$columnDB as $column) {
+            if (property_exists($this, $column)) {
+                $value = self::$db->real_escape_string($this->$column);
+                $query .= "`$column` = '$value', ";
             }
         }
-        $query = rtrim($query, ", ") . " WHERE id = {$this->id}";
+        $query = rtrim($query, " ") . " WHERE id = {$this->id}";
         $result = self::$db->query($query);
         return $result;
     }
 
     public function delete(){
+        $id = self::$db->real_escape_string($id);
         $query = "DELETE FROM " . static::$table . " WHERE id = {$this->id}";
         $result = self::$db->query($query);
         return $result;
@@ -118,6 +110,8 @@ public static function findBy($column, $value){
 
    
     public static function findAllBy($column, $value){
+        $value = self::$db->real_escape_string($value);
+
         $query = "SELECT * FROM " . static::$table . " WHERE $column = '$value'";
         $result = self::$db->query($query);
         $array = [];
@@ -131,6 +125,14 @@ public static function findBy($column, $value){
     public function save(){
         $this->validate();
         if(empty(static::$errors)){
+
+            foreach (static::$columnDB as $column) {
+                if (property_exists($this, $column)) {
+                    $value = self::$db->real_escape_string($this->$column);
+                    $columns[] = "`$column`";
+                    $values[] = "'$value'";
+                }
+            }
             $query = "INSERT INTO " . static::$table . " () VALUES ('{}')";
             $result = self::$db->query($query);
             return $result;
@@ -139,7 +141,8 @@ public static function findBy($column, $value){
         }
     }
 
-      private function img($imagen){   
+      private function img($imagen){ 
+
         $nombre_img=md5(uniqid(rand(),true )).".png";
         //echo $nombre_img; exit;
        $manager=new ImageManager(Driver::class);
