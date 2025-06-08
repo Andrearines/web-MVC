@@ -49,6 +49,12 @@ if(!isset($inicio)){
         ?>
         <p class="copyright">todos los derechos resevados <?php echo(date("Y"))?> &copy;</p>
     </footer>
-         <script src="../build/js/bundle.min.js"></script>   
+          <?php
+    if($script){
+        echo "<script src='build/js/{$script}.js'></script>";
+    }
+    ?>
     </body>
     </html>
+
+    
