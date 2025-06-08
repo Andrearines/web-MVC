@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function iniciarApp() {
     consulta();
- 
+    
 }
 
 
@@ -17,12 +17,13 @@ try{
     
     mostrarS(services)
 }catch(error){
-console.log(error)
+alerta("error", "Error con el servidor", ".contenedor" ,false);
 }
 }
 
 function mostrarS(S){
-    console.log(S);
+    
+    alerta("success", S, ".header");
 }
 
 function alerta(tipo,mensage,elemento,desaparecer = true) {
