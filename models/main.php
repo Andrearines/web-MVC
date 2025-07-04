@@ -122,7 +122,7 @@ public static function findBy($column, $value){
         return $array;
     }
 
-    public function save(){
+    public function save($arg=[]){
         $this->validate();
         if(empty(static::$errors)){
 
@@ -141,13 +141,13 @@ public static function findBy($column, $value){
         }
     }
 
-      private function img($imagen){ 
+      private function img($img,$carpeta){ 
 
         $nombre_img=md5(uniqid(rand(),true )).".png";
         //echo $nombre_img; exit;
-       $manager=new ImageManager(Driver::class);
-       $imagen=$manager->read($imagen['tmp_name'])->cover(900,900);
-       $imagen->save(__DIR__ . '/../public/imagenes/'.$nombre_img);
+       $manager = new ImageManager(new Driver());
+       $imagen=$manager->read($img['tmp_name'])->cover(900,900);
+       $imagen->save(__DIR__ . '/../public/imagenes/'.$carpeta."/".$nombre_img);
        return  $nombre_img;
     }
 

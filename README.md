@@ -14,7 +14,7 @@ Para utilizar esta plantilla, asegúrese de agregar las siguientes dependencias 
 
 ```json
 "require": {
-    "intervention/image": "^2.7"
+    "intervention/image": "^3.0"
 },
 "autoload": {
     "psr-4": {

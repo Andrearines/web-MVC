@@ -1,4 +1,4 @@
-<?php $script= "bundle.min"?>
+
 
 <main>
 <div class="contenedor">
