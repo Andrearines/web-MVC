@@ -28,10 +28,10 @@ class Router{
              $$key = $value;
         }
         ob_start();
-        include __DIR__."/views/$view";
+        include __DIR__."/../app/views/$view";
 
         $contenedor=ob_get_clean();
-        include __DIR__."/views/layout.php";
+        include __DIR__."/../app/views/layout.php";
 
     }
 

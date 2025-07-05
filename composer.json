@@ -2,9 +2,9 @@
     "name": "steven/andre",
     "autoload": {
         "psr-4": {
-            "models\\":"./models",
-            "MVC\\":"./",
-            "controllers\\":"./controllers"
+            "models\\":"./app/models",
+            "MVC\\":"./router",
+            "controllers\\":"./app/controllers"
         }
     },
     "authors": [

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__. '/../includes/app.php';
+require_once __DIR__. '/../config/app.php';
 use controllers\paginas;
 use controllers\API;
 use MVC\Router;

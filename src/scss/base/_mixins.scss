@@ -21,7 +21,7 @@
     gap: $espaciado;
     grid-template-columns: repeat($columnas, 1fr);
 }
-@mixin boton($color,$hover, $display){
+@mixin boton($color,$hover, $display,$text,$text-hover){
     transition-property: background-color;
     transition-duration: .3s;
     border: none;
@@ -29,7 +29,7 @@
     padding: 1rem 2rem;
     background-color: $color;
     font-weight: bold;
-        color: azure;
+        color: $text;
         text-decoration: none;
         text-align: center;
         display:$display ;
@@ -41,6 +41,7 @@
     transition-property: background-color;
     transition-duration: .3s;
     background-color:$hover;
+    color: $text-hover;
     cursor: pointer;
 }
 

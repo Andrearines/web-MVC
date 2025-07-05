@@ -1,5 +1,7 @@
 /vendor/
 /node_modules/
-/includes/config/
+/config/database.php
 /public/build/
+/composer.lock
+/composer.json
 

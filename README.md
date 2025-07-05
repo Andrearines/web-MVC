@@ -16,16 +16,14 @@ Para utilizar esta plantilla, asegúrese de agregar las siguientes dependencias 
 "require": {
     "intervention/image": "^3.0"
 },
-"autoload": {
-    "psr-4": {
-        "models\\": "./models",
-        "MVC\\": "./",
-        "controllers\\": "./controllers"
-    }
-}
+"psr-4": {
+            "models\\":"./app/models",
+            "MVC\\":"./router",
+            "controllers\\":"./app/controllers"
+        }
 ```
 
-> **Nota:** Ejecute `composer install` o `composer update` después de agregar las dependencias para instalarlas correctamente.
+> **Nota:** Ejecute `composer install` y `composer update` después de agregar las dependencias para instalarlas correctamente y configura ek .env.
 >
 > Si utiliza herramientas de frontend, también puede ejecutar `npm install` para instalar las dependencias de Node.js y luego `gulp` o `npm run dev` para compilar los recursos del proyecto.
 
